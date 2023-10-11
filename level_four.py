@@ -11,14 +11,18 @@ choose_list = input("to pick a list, type 'easy,' 'medium,' or 'hard' -> ")
 #assigns list to word_lsit
 if choose_list == "easy":
     word_list = easy_list
+    tries = 15
 elif choose_list == "medium":
     word_list = medium_list
+    tries = 10
 elif choose_list == "hard":
     word_list = hard_list
-else:
-    print("please type a proper list: 'easy,' 'medium,' or 'hard")
-    choose_list = input("to pick a list, type 'easy,' 'medium,' or 'hard' -> ")
-    #struggling with how to restart this loop after this point
+    tries = 5
+# else:
+#     print("please type a proper list: 'easy,' 'medium,' or 'hard")
+#     choose_list = input("to pick a list, type 'easy,' 'medium,' or 'hard' -> ")
+#     #struggling with how to restart this loop after this point
+
 
 #picks a random word from said list
 word = random.choice(word_list)
@@ -37,8 +41,14 @@ def check(guess, word):
     return result
 
 #while the guess is incorrect, run specified steps until it is (correct)
-while guess != word:
+while tries > 1 and guess != word:
     print(check(guess, word))
+    tries = tries - 1
+    print(tries, "tries left")
     guess = input("type a word! -> ")
-else:
+
+if tries == 0:
+    print("you lost!")
+
+if guess == word:
     print("WOW! You guessed correctly! Congrats!")
